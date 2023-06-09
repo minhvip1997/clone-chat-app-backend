@@ -13,10 +13,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const sessionRepository = getRepository(Session);
   app.setGlobalPrefix('api');
+  app.enableCors({ origin: ['http://localhost:3000'], credentials: true });
   app.useGlobalPipes(new ValidationPipe());
   app.use(
     session({
-      secret: COOKIE_SECRET,
+      secret: 'FADFAFSDAFSDAFSDFAFDSFSD',
       saveUninitialized: false,
       resave: false,
       cookie: {
@@ -30,7 +31,7 @@ async function bootstrap() {
   app.use(passport.session());
 
   try {
-    await app.listen(PORT, () => console.log(`Running on Port ${PORT}`));
+    await app.listen(3001, () => console.log(`Running on Port ${3001}`));
   } catch (err) {
     console.log(err);
   }
