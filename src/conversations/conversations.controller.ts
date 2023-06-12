@@ -4,7 +4,7 @@ import { Routes, Services } from '../utils/constants';
 import { IConversationsService } from './conversations';
 import { CreateConversationDto } from './dtos/CreateConversations.dto';
 
-@Controller('conversations')
+@Controller(Routes.CONVERSATIONS)
 export class ConversationsController {
   constructor(
     @Inject(Services.CONVERSATIONS)
