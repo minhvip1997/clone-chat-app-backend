@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ConversationsModule } from './conversations/conversations.module';
+import { ParticipantsModule } from './participants/participants.module';
 import entities from './utils/typeorm';
 
 @Module({
@@ -18,12 +19,13 @@ import entities from './utils/typeorm';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password:'123456789',
+      password: '123456789',
       database: 'chatapp',
       synchronize: true,
       entities,
     }),
     ConversationsModule,
+    ParticipantsModule,
   ],
   controllers: [],
   providers: [],
