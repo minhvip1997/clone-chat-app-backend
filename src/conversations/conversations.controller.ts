@@ -21,7 +21,6 @@ export class ConversationsController {
   ) {
     console.log('createConversationPayload', createConversationPayload);
 
-    // this.conversationsService.createConversation(createConversationPayload);
     return this.conversationsService.createConversation(
       user,
       createConversationPayload,
