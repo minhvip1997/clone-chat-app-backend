@@ -1,5 +1,11 @@
 import { ConversationIdentityType } from 'src/utils/types';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+  JoinTable,
+} from 'typeorm';
 import { Participant } from './Participant';
 
 @Entity({ name: 'conversations' })
