@@ -1,10 +1,11 @@
-import { User } from './entities/User';
-import { Session } from './entities/Session';
 import { Conversation } from './entities/Conversation';
-import { Participant } from './entities/Participant';
+import { Session } from './entities/Session';
+import { User } from './entities/User';
+// import { Participant } from './entities/Participant';
 
-const entities = [User, Session, Conversation, Participant];
+const entities = [User, Session, Conversation];
 
 export default entities;
 
-export { User, Session, Conversation, Participant };
+export { Conversation, Session, User };
+

@@ -2,11 +2,11 @@ import { ConversationIdentityType } from 'src/utils/types';
 import {
   Column,
   Entity,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-  JoinTable,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn
 } from 'typeorm';
-import { Participant } from './Participant';
+import { User } from './User';
 
 @Entity({ name: 'conversations' })
 export class Conversation {
@@ -22,6 +22,11 @@ export class Conversation {
   @Column()
   identity: ConversationIdentityType;
 
-  @ManyToMany(() => Participant, (participant) => participant.conversations)
-  participants: Participant[];
+  @OneToOne(() => User, { createForeignKeyConstraints: false })
+  @JoinColumn()
+  creator: User;
+
+  @OneToOne(() => User, { createForeignKeyConstraints: false })
+  @JoinColumn()
+  recipient: User;
 }
