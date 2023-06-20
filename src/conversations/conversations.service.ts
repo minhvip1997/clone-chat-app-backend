@@ -74,6 +74,7 @@ export class ConversationsService implements IConversationsService {
     const conversation = this.conversationRepository.create({
       creator: user,
       recipient: recipient,
+      authorId: user.id,
     });
     return this.conversationRepository.save(conversation);
   }
