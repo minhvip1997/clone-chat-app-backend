@@ -3,9 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
 import { ConversationsModule } from './conversations/conversations.module';
-import { ParticipantsModule } from './participants/participants.module';
+import { UsersModule } from './users/users.module';
 import entities from './utils/typeorm';
 
 @Module({
@@ -23,9 +22,9 @@ import entities from './utils/typeorm';
       database: 'chatapp',
       synchronize: true,
       entities,
+      logging: true,
     }),
     ConversationsModule,
-    ParticipantsModule,
   ],
   controllers: [],
   providers: [],

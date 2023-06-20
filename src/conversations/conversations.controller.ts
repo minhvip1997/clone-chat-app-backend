@@ -19,7 +19,6 @@ export class ConversationsController {
     @AuthUser() user: User,
     @Body() createConversationPayload: CreateConversationDto,
   ) {
-    console.log('createConversationPayload', createConversationPayload);
 
     return this.conversationsService.createConversation(
       user,
@@ -28,10 +27,8 @@ export class ConversationsController {
   }
 
   @Get()
-  async getConversations(@AuthUser() user: User) {
-    const { id } = user.participant;
-    const conversation = await this.conversationsService.find(id);
-    return conversation;
+  async getConversations(@AuthUser() { id }: User) {
+    return this.conversationsService.getConversations(id);
   }
 
   @Get(':id')
