@@ -1,6 +1,7 @@
 import { ConversationIdentityType } from 'src/utils/types';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
@@ -38,7 +39,7 @@ export class Conversation {
   @JoinColumn()
   messages: Message[];
 
-  @Column({ name: 'created_at', nullable: true })
+  @CreateDateColumn({ name: 'created_at', nullable: true })
   createdAt: number;
 
   @OneToOne(() => Message)
