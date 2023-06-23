@@ -4,6 +4,7 @@ export enum Routes {
   CONVERSATIONS = 'conversations',
   PARTICIPANTS = 'participants',
   MESSAGES = 'messages',
+  GATEWAY_SESSION_MANAGER = 'GATEWAY_SESSION_MANAGER',
 }
 
 export enum Services {
@@ -12,4 +13,5 @@ export enum Services {
   CONVERSATIONS = 'CONVERSATIONS_SERVICE',
   PARTICIPANTS = 'PARTICIPANTS_SERVICE',
   MESSAGES = 'MESSAGE_SERVICE',
+  GATEWAY_SESSION_MANAGER = 'GATEWAY_SESSION_MANAGER',
 }
