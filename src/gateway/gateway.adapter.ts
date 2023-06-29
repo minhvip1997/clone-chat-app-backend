@@ -25,7 +25,7 @@ export class WebsocketAdapter extends IoAdapter {
       console.log(CHAT_APP_SESSION_ID);
       const signedCookie = cookieParser.signedCookie(
         CHAT_APP_SESSION_ID,
-        process.env.COOKIE_SECRET,
+        'FADFAFSDAFSDAFSDFAFDSFSD',
       );
       console.log(signedCookie);
       if (!signedCookie) return next(new Error('Error signing cookie'));

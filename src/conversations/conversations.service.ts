@@ -20,6 +20,7 @@ export class ConversationsService implements IConversationsService {
   async getConversations(id: number): Promise<Conversation[]> {
     return this.conversationRepository
       .createQueryBuilder('conversation')
+      .leftJoinAndSelect('conversation.lastMessageSent', 'lastMessageSent')
       .leftJoin('conversation.creator', 'creator')
       .addSelect([
         'creator.id',
@@ -36,7 +37,7 @@ export class ConversationsService implements IConversationsService {
       ])
       .where('creator.id = :id', { id })
       .orWhere('recipient.id = :id', { id })
-      .orderBy('conversation.id', 'DESC')
+      .orderBy('conversation.lastMessageSentAt', 'DESC')
       .getMany();
   }
 

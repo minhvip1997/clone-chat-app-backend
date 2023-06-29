@@ -12,6 +12,7 @@ import { Services } from '../utils/constants';
 import { AuthenticatedSocket } from '../utils/interfaces';
 import { Message } from '../utils/typeorm';
 import { IGatewaySessionManager } from './gateway.session';
+import { CreateMessageResponse } from 'src/utils/types';
 
 @WebSocketGateway({
   cors: {
@@ -24,6 +25,8 @@ export class MessagingGateway implements OnGatewayConnection {
     @Inject(Services.GATEWAY_SESSION_MANAGER)
     private readonly sessions: IGatewaySessionManager,
   ) {}
+  @WebSocketServer()
+  server: Server;
 
   handleConnection(socket: AuthenticatedSocket, ...args: any[]) {
     console.log('New Incoming Connection');
@@ -31,22 +34,22 @@ export class MessagingGateway implements OnGatewayConnection {
     this.sessions.setUserSocket(socket.user.id, socket);
     socket.emit('connected', { status: 'good' });
   }
-  @WebSocketServer()
-  server: Server;
+  
 
   @SubscribeMessage('createMessage')
   handleCreateMessage(@MessageBody() data: any) {
     console.log('Create Message');
+    
   }
 
   @OnEvent('message.create')
-  handleMessageCreateEvent(payload: Message) {
+  handleMessageCreateEvent(payload: CreateMessageResponse) {
     console.log('Inside message.create');
     console.log(payload);
     const {
       author,
       conversation: { creator, recipient },
-    } = payload;
+    } = payload.message;
 
     const authorSocket = this.sessions.getUserSocket(author.id);
     const recipientSocket =
@@ -54,9 +57,9 @@ export class MessagingGateway implements OnGatewayConnection {
         ? this.sessions.getUserSocket(recipient.id)
         : this.sessions.getUserSocket(creator.id);
 
-    console.log(`Recipient Socket: ${JSON.stringify(recipientSocket.user)}`);
+    // console.log(`Recipient Socket: ${JSON.stringify(recipientSocket.user)}`);
 
-    recipientSocket.emit('onMessage', payload);
-    authorSocket.emit('onMessage', payload);
+    if (authorSocket) authorSocket.emit('onMessage', payload);
+    if (recipientSocket) recipientSocket.emit('onMessage', payload);
   }
 }

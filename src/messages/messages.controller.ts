@@ -20,12 +20,11 @@ export class MessagesController {
     @AuthUser() user: User,
     @Body() createMessageDto: CreateMessageDto,
   ) {
-    // return this.messageService.createMessage({ ...createMessageDto, user });
-    const msg = await this.messageService.createMessage({
+    const response = await this.messageService.createMessage({
       ...createMessageDto,
       user,
     });
-    this.eventEmitter.emit('message.create', msg);
+    this.eventEmitter.emit('message.create', response );
     return;
   }
 
@@ -34,7 +33,6 @@ export class MessagesController {
     @AuthUser() user: User,
     @Param('conversationId', ParseIntPipe) conversationId: number,
   ) {
-    // return this.messageService.getMessagesByConversationId(conversationId);
     const messages = await this.messageService.getMessagesByConversationId(
       conversationId,
     );
